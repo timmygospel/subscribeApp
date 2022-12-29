@@ -15,7 +15,7 @@ const Login = ({ history }) => {
     
     try {
       e.preventDefault();
-      const { data } = await axios.post("http://localhost:8000/api/login", {
+      const { data } = await axios.post("/login", {
         email,
         password,
       });

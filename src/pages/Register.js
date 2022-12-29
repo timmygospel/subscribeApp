@@ -17,7 +17,7 @@ const Register = ({ history }) => {
         console.log(name, email, password);
         try {
             e.preventDefault();
-            const { data } = await axios.post("http://localhost:8000/api/register", {
+            const { data } = await axios.post("/register", {
                 name,
                 email,
                 password
