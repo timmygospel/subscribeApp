@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useContext } from "react";
 import { UserContext } from "../../context";
 
-const Basic = ({history}) => {
+const Basic = ({history, match}) => {
     const [state, setState] = useContext(UserContext);
 
     useEffect(() => {

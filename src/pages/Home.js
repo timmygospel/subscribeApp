@@ -6,7 +6,7 @@ import { UserContext } from "../context";
 const Home = ({ history }) => {
   const [state, setState] = useContext(UserContext);
   const [prices, setPrices] = useState([]);
-  const [userSubscriptions,setUserSubscriptions] = useState([]);
+  const [userSubscriptions, setUserSubscriptions] = useState([]);
 
   useEffect(() => {
     fetchPrices();
@@ -15,14 +15,16 @@ const Home = ({ history }) => {
   useEffect(() => {
     let result = []
     const check = () => 
+    console.log('this is the current state subscription', state.subscription);
       state && 
       state.user && 
-      state.userSubscription &&
-      state.userSubscriptions.map((sub) => {
+      state.user.subscriptions &&
+      state.user.subscriptions.map((sub) => {
         result.push(sub.plan.id);
     });
     check();
-    setUserSubscriptions(result)
+    console.log('result =',result)
+    setUserSubscriptions(result);
   }, [state && state.user]);
 
   const fetchPrices = async () => {
@@ -33,7 +35,7 @@ const Home = ({ history }) => {
 
   const handleClick = async (e, price) => {
     e.preventDefault();
-    if(userSubscriptions & userSubscriptions.includes(price.id)) {
+    if(userSubscriptions && userSubscriptions.includes(price.id)) {
       history.push(`/${price.nickname.toLowerCase()}`);
       return;
     }

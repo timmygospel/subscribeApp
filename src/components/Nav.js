@@ -30,7 +30,7 @@ const Nav = () => {
                     {state.user.email}
                 </li>
                 <ul className='dropdown-menu'>
-                <li className='nav-item dropdown-menu'>
+                <li className='nav-item dropdown-item'>
                     <Link className='nav-link' to="/account">
                         Account
                     </Link>

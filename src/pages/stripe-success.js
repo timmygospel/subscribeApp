@@ -1,32 +1,32 @@
-import React, { useContext, useEffect } from "react";
-import { WarningTwoTone } from "@ant-design/icons";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { SecurityScanTwoTone, SyncOutlined } from "@ant-design/icons";
 import { UserContext } from "../context";
 
 const StripeSuccess = ({ history }) => {
-  const [state,setState] = useContext(UserContext);
+  const [state, setState] = useContext(UserContext);
 
-  useEffect(()=> {
-    const getSubscriptionStatus =  async() => {
-      const {data} = await axios.get('/subscription-status')
-      console.log("SUSBCRIPTION STATUS => ", data);
+  useEffect(() => {
+    const getSubscriptionStatus = async () => {
+      const { data } = await axios.get("/subscription-status");
+      console.log("SUBSCRIPTION STATUS => ", data);
       if (data && data.length === 0) {
-          history.pushState('/')
+        history.push("/");
       } else {
-        //update user in local storage
+        // UPDATE USER IN LOCAL STORAGE
         const auth = JSON.parse(localStorage.getItem("auth"));
         auth.user = data;
-        localStorage.setItem("auth".JSON.stringify(auth));
-        //update user context
+        localStorage.setItem("auth", JSON.stringify(auth));
+        // update user in context
         setState(auth);
-        history.push('/account');
-        setTimeout(()=> {
+        setTimeout(() => {
           history.push("/account");
         }, 1000);
       }
-    }
+    };
+
     getSubscriptionStatus();
-  }, [])
+  }, []);
 
   return (
     <div
@@ -34,7 +34,7 @@ const StripeSuccess = ({ history }) => {
       style={{ height: "90vh" }}
     >
       <div className="d-flex align-items-center">
-        <WarningTwoTone style={{ fontSize: "50px" }} />
+        <SyncOutlined spin style={{ fontSize: "50px" }} />
       </div>
     </div>
   );
