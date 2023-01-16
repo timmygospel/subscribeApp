@@ -18,10 +18,10 @@ const Account = ({ history }) => {
     if (state && state.token) getSubscriptions();
   }, [state && state.token]);
 
-  const manageSubscriptions =  async () => {
+  const manageSubscriptions = async () => {
     const { data } = await axios.get("/customer-portal");
     window.open(data);
-  }
+  };
 
   return (
     <div className="container">
@@ -63,7 +63,10 @@ const Account = ({ history }) => {
                 >
                   Access
                 </button>{" "}
-                <button onClick={manageSubscriptions} className="btn btn-outline-warning">
+                <button
+                  onClick={manageSubscriptions}
+                  className="btn btn-outline-warning"
+                >
                   Manage Subscription
                 </button>
               </section>
