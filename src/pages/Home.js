@@ -13,18 +13,28 @@ const Home = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    let result = []
-    const check = () => 
-    console.log('this is the current state subscription', state.subscription);
-      state && 
-      state.user && 
+    let result = [];
+    const check = () =>
+      state &&
+      state.user &&
       state.user.subscriptions &&
       state.user.subscriptions.map((sub) => {
         result.push(sub.plan.id);
-    });
+      });
     check();
-    console.log('result =',result)
     setUserSubscriptions(result);
+  }, [state && state.user]);
+
+  useEffect(() => {
+    const isPaused = () => {
+      state &&
+        state.user &&
+        state.user.subscriptions &&
+        state.user.subscriptions.resumes_at &&
+        history.push("/account");
+    };
+
+    state && state.user && isPaused();
   }, [state && state.user]);
 
   const fetchPrices = async () => {
@@ -35,7 +45,7 @@ const Home = ({ history }) => {
 
   const handleClick = async (e, price) => {
     e.preventDefault();
-    if(userSubscriptions && userSubscriptions.includes(price.id)) {
+    if (userSubscriptions && userSubscriptions.includes(price.id)) {
       history.push(`/${price.nickname.toLowerCase()}`);
       return;
     }
